@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrowserAgent Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 320px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0F172A;
+      color: #E2E8F0;
+      padding: 16px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-bottom: 16px;
+      color: #F97316;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #94A3B8;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      color: #E2E8F0;
+      font-size: 13px;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #F97316;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+    }
+
+    .btn-primary {
+      background: #F97316;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #EA580C;
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: #E2E8F0;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+    }
+
+    .status {
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .status.success {
+      background: #22C55E;
+      color: white;
+    }
+
+    .status.error {
+      background: #EF4444;
+      color: white;
+    }
+
+    .divider {
+      height: 1px;
+      background: #334155;
+      margin: 16px 0;
+    }
+
+    .info {
+      font-size: 11px;
+      color: #64748B;
+      margin-top: 4px;
+    }
+
+    .session-id {
+      font-family: monospace;
+      font-size: 10px;
+      color: #64748B;
+      word-break: break-all;
+      margin-top: 16px;
+      padding: 8px;
+      background: #1E293B;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h2>BrowserAgent</h2>
+
+  <div class="field">
+    <label for="server-url">Server URL</label>
+    <input type="text" id="server-url" placeholder="http://localhost:8000">
+    <div class="info">Local server address</div>
+  </div>
+
+  <button class="btn btn-secondary" id="test-btn">Test Connection</button>
+
+  <div id="status" style="display: none;"></div>
+
+  <button class="btn btn-primary" id="save-btn">Save Settings</button>
+
+  <div class="divider"></div>
+
+  <button class="btn btn-secondary" id="open-agents-btn">Manage Agents</button>
+
+  <div class="session-id">
+    <strong>Session ID:</strong><br>
+    <span id="session-id">—</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

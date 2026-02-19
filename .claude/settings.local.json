@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv venv)",
+      "Bash(source:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(uv pip install:*)",
+      "Bash(curl -s http://localhost:8080/api/v1/health)",
+      "Bash(netstat:*)",
+      "Bash(curl -s http://localhost:8080/api/v1/agents)",
+      "Bash(taskkill:*)",
+      "Bash(curl:*)",
+      "Bash(ls -lh *.md *.py requirements.txt .env)",
+      "Bash(bash build.sh)",
+      "Bash(zip:*)",
+      "Bash(ls:*)",
+      "Bash(test -d extension)",
+      "Bash(uv:*)",
+      "Bash(dir)"
+    ]
+  }
+}

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Manager - BrowserAgent</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0F172A;
+      color: #E2E8F0;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      color: #F97316;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #F97316;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #EA580C;
+    }
+
+    .btn-secondary {
+      background: #334155;
+      color: #E2E8F0;
+    }
+
+    .btn-secondary:hover {
+      background: #475569;
+    }
+
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .agent-card {
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+
+    .agent-card:hover {
+      border-color: #F97316;
+    }
+
+    .agent-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 12px;
+    }
+
+    .agent-card h3 {
+      font-size: 18px;
+      color: #F97316;
+      margin-bottom: 8px;
+    }
+
+    .agent-card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .icon-btn:hover {
+      opacity: 1;
+    }
+
+    .agent-description {
+      font-size: 14px;
+      color: #94A3B8;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .agent-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tool-badge {
+      padding: 4px 8px;
+      background: #334155;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #94A3B8;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #1E293B;
+      border-radius: 12px;
+      padding: 32px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h2 {
+      font-size: 24px;
+      color: #F97316;
+      margin-bottom: 24px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #E2E8F0;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 10px;
+      background: #0F172A;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      color: #E2E8F0;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #F97316;
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: #64748B;
+      margin-top: 4px;
+    }
+
+    .tool-checklist {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .tool-group {
+      margin-bottom: 16px;
+    }
+
+    .tool-group-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #F97316;
+      margin-bottom: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      font-size: 13px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: auto;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .modal-buttons .btn {
+      flex: 1;
+    }
+
+    .warning-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      background: #EF4444;
+      color: white;
+      border-radius: 4px;
+      font-size: 10px;
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Agent Manager</h1>
+      <button class="btn btn-primary" id="new-agent-btn">+ New Agent</button>
+    </div>
+
+    <div class="agent-grid" id="agent-grid">
+      <!-- Agent cards will be inserted here -->
+    </div>
+  </div>
+
+  <!-- Agent Form Modal -->
+  <div class="modal" id="agent-modal" style="display: none;">
+    <div class="modal-content">
+      <h2 id="modal-title">New Agent</h2>
+
+      <div class="field">
+        <label for="agent-name">Name</label>
+        <input type="text" id="agent-name" placeholder="e.g., Sales Analyzer">
+      </div>
+
+      <div class="field">
+        <label for="agent-description">Description (When to use)</label>
+        <textarea id="agent-description" rows="3" placeholder="Describe WHEN to use this agent. The Orchestrator uses this to decide which agent to pick."></textarea>
+        <div class="field-hint">Example: "Use me when you need to analyze sales data, revenue figures, or KPIs on the current page"</div>
+      </div>
+
+      <div class="field">
+        <label for="agent-prompt">System Prompt</label>
+        <textarea id="agent-prompt" rows="5" placeholder="Detailed instructions for this agent. The planning execution rules will be automatically appended."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="agent-model">Model</label>
+        <select id="agent-model">
+          <option value="openai/gpt-4o">GPT-4o</option>
+          <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+          <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+          <option value="google/gemini-pro-1.5">Gemini Pro 1.5</option>
+          <option value="meta-llama/llama-3.1-70b-instruct">Llama 3.1 70B</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Allowed Tools</label>
+        <div class="tool-checklist" id="tool-checklist">
+          <!-- Tools will be inserted here -->
+        </div>
+      </div>
+
+      <div class="modal-buttons">
+        <button class="btn btn-primary" id="save-agent-btn">Save Agent</button>
+        <button class="btn btn-secondary" id="cancel-agent-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="agents.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrowserAgent</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <span class="logo">BrowserAgent</span>
+        <span class="status-dot" id="status-dot"></span>
+      </div>
+      <div class="header-right">
+        <label class="mode-toggle">
+          <input type="checkbox" id="ask-mode-toggle">
+          <span class="toggle-label">Ask Mode</span>
+        </label>
+        <button class="icon-btn" id="settings-btn" title="Settings">⚙️</button>
+      </div>
+    </div>
+
+    <!-- Agent Strip -->
+    <div class="agent-strip" id="agent-strip">
+      <!-- Agent pills will be inserted here -->
+    </div>
+
+    <!-- Plan Panel -->
+    <div class="plan-panel" id="plan-panel" style="display: none;">
+      <div class="plan-header">
+        <h3 class="plan-title">Execution Plan</h3>
+        <button class="collapse-btn" id="collapse-plan-btn">−</button>
+      </div>
+      <ul class="todo-list" id="todo-list">
+        <!-- Todo items will be inserted here -->
+      </ul>
+      <div class="plan-actions" id="plan-actions" style="display: none;">
+        <button class="btn btn-primary" id="approve-plan-btn">Approve Plan</button>
+        <button class="btn btn-secondary" id="edit-plan-btn">Edit Plan</button>
+      </div>
+    </div>
+
+    <!-- Activity Bar -->
+    <div class="activity-bar" id="activity-bar" style="display: none;">
+      <span class="activity-text" id="activity-text">Processing...</span>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="chat-area" id="chat-area">
+      <div class="welcome-message">
+        <h2>Welcome to BrowserAgent</h2>
+        <p>Select an agent above or let the orchestrator choose the best one for your task.</p>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area">
+      <textarea
+        id="prompt-input"
+        placeholder="What would you like me to do?"
+        rows="2"
+      ></textarea>
+      <div class="input-buttons">
+        <button class="btn btn-primary" id="send-btn">Send</button>
+        <button class="btn btn-secondary" id="clear-btn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal" id="confirm-modal" style="display: none;">
+    <div class="modal-content">
+      <h3>Confirm Action</h3>
+      <p id="confirm-description"></p>
+      <div class="modal-buttons">
+        <button class="btn btn-primary" id="confirm-allow-btn">Allow</button>
+        <button class="btn btn-secondary" id="confirm-deny-btn">Deny</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="sidepanel.js"></script>
+</body>
+</html>

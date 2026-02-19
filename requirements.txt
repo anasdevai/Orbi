@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+aiosqlite
+openai-agents
+httpx
+python-dotenv
+pillow
+croniter
